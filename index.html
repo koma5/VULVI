@@ -9,8 +9,8 @@
 		var rand = Math.random();
 		return Math.floor(rand * (max - min + 1) ) + min;
 	}
-
-	window.onload = function() {
+    
+    var drawVulva = function() {
 		var canvas = document.getElementById('vulva');
 		paper.setup(canvas);
 
@@ -27,9 +27,13 @@
         //path.fullySelected = true;
 		paper.view.draw();
 	}
+
+	window.onload = drawVulva
 </script>
 </head>
 <body>
 	<canvas id="vulva" resize></canvas>
+    <input type="text" id="refreshRate"/>
+    <button onclick="setInterval(drawVulva, parseInt(getElementById('refreshRate').value))">refresh</button>
 </body>
 </html>
