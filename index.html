@@ -16,11 +16,11 @@
 
 		var upperPoint = new paper.Point(getRandomInt(40, 60), getRandomInt(0, 20));
 		var lowerPoint = new paper.Point(getRandomInt(40, 60), getRandomInt(80, 100));
-		var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(getRandomInt(-40, 0), 50));
-		var secondSegment = new paper.Segment(lowerPoint, new paper.Point(getRandomInt(-40, 0), -50), null);
+		var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(getRandomInt(-40, 0), getRandomInt(50, 20)));
+		var secondSegment = new paper.Segment(lowerPoint, new paper.Point(getRandomInt(-40, 0), getRandomInt(-50, -20)), null);
 
-		var thirdSegment = new paper.Segment(lowerPoint, null, new paper.Point(getRandomInt(0, 40), -50));
-		var fourthSegment = new paper.Segment(upperPoint, new paper.Point(getRandomInt(0, 40), 50), null);
+		var thirdSegment = new paper.Segment(lowerPoint, null, new paper.Point(getRandomInt(0, 40), getRandomInt(-50, -20)));
+		var fourthSegment = new paper.Segment(upperPoint, new paper.Point(getRandomInt(0, 40), getRandomInt(50, 20)), null);
 
 		var path = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
 		path.strokeColor = 'black';
