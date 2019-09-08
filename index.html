@@ -14,8 +14,9 @@
 		var canvas = document.getElementById('vulva');
 		paper.setup(canvas);
 
-		var upperPoint = new paper.Point(getRandomInt(40, 60), getRandomInt(0, 20));
-		var lowerPoint = new paper.Point(getRandomInt(40, 60), getRandomInt(80, 100));
+        var height = getRandomInt(60, 100)
+		var upperPoint = new paper.Point(getRandomInt(40, 60), 50 - (height/2));
+		var lowerPoint = new paper.Point(getRandomInt(40, 60), 50 + (height/2));
 		var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(getRandomInt(-40, 0), getRandomInt(50, 20)));
 		var secondSegment = new paper.Segment(lowerPoint, new paper.Point(getRandomInt(-40, 0), getRandomInt(-50, -20)), null);
 
