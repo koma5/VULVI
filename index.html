@@ -15,8 +15,11 @@
 		paper.setup(canvas);
 
         var height = getRandomInt(60, 100)
-		var upperPoint = new paper.Point(getRandomInt(40, 60), 50 - (height/2));
-		var lowerPoint = new paper.Point(getRandomInt(40, 60), 50 + (height/2));
+        var verticalSpreadTop = getRandomInt(-10, 10)
+        var verticalSpreadBottom = getRandomInt(-10, 10)
+        var spread = 50 + (verticalSpreadTop + verticalSpreadBottom) / 2
+		var upperPoint = new paper.Point(verticalSpreadTop +50, 50 - (height/2));
+		var lowerPoint = new paper.Point(verticalSpreadBottom + 50, 50 + (height/2));
 		var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(getRandomInt(-40, 0), getRandomInt(50, 20)));
 		var secondSegment = new paper.Segment(lowerPoint, new paper.Point(getRandomInt(-40, 0), getRandomInt(-50, -20)), null);
 
