@@ -8,14 +8,12 @@
     class Vulva {
         constructor(options = {}) {
             Object.assign(this, {
-                size: 100
+                size: 100,
+                debug: false
             }, options);
         }
 
         drawOuterLabia() {
-            var canvas = document.getElementById('vulva');
-            paper.setup(canvas);
-
             var height = this.getRandomInt(60, 100)
             var verticalSpreadTop = this.getRandomInt(-10, 10)
             var verticalSpreadBottom = this.getRandomInt(-10, 10)
@@ -30,8 +28,18 @@
 
             var path = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
             path.strokeColor = 'black';
-            //path.fullySelected = true;
+            path.fullySelected = this.debug;
             paper.view.draw();
+        }
+
+        draw() {
+            this.canvas = (this.id) ? document.getElementById(this.id) : document.createElement('canvas');
+            if (this.canvas.parentElement == null) {
+                document.body.appendChild(this.canvas);
+            }
+            paper.setup(this.canvas);
+
+            this.drawOuterLabia();
         }
 
         getRandomInt(min, max) {
@@ -43,8 +51,8 @@
     }
     
 var testVulva = function() {
-    var v = new Vulva();
-    v.drawOuterLabia();
+    var v = new Vulva({id:'vulva'});
+    v.draw();
 }
 
 window.onload = testVulva
