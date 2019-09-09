@@ -5,39 +5,54 @@
 <script type="text/javascript" src="./node_modules/paper/dist/paper-full.min.js"></script>
 <script type="text/javascript">
 
-	var getRandomInt = function(min, max) {
-		var rand = Math.random();
-		return Math.floor(rand * (max - min + 1) ) + min;
-	}
+    class Vulva {
+        constructor(options = {}) {
+            Object.assign(this, {
+                size: 100
+            }, options);
+        }
+
+        drawOuterLabia() {
+            var canvas = document.getElementById('vulva');
+            paper.setup(canvas);
+
+            var height = this.getRandomInt(60, 100)
+            var verticalSpreadTop = this.getRandomInt(-10, 10)
+            var verticalSpreadBottom = this.getRandomInt(-10, 10)
+            var spread = 50 - (verticalSpreadTop + verticalSpreadBottom) / 2
+            var upperPoint = new paper.Point(verticalSpreadTop + spread, 50 - (height/2));
+            var lowerPoint = new paper.Point(verticalSpreadBottom + spread, 50 + (height/2));
+            var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(50, 20)));
+            var secondSegment = new paper.Segment(lowerPoint, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(-50, -20)), null);
+
+            var thirdSegment = new paper.Segment(lowerPoint, null, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(-50, -20)));
+            var fourthSegment = new paper.Segment(upperPoint, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(50, 20)), null);
+
+            var path = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
+            path.strokeColor = 'black';
+            //path.fullySelected = true;
+            paper.view.draw();
+        }
+
+        getRandomInt(min, max) {
+		    var rand = Math.random();
+		    return Math.floor(rand * (max - min + 1) ) + min;
+	    }
+
+
+    }
     
-    var drawVulva = function() {
-		var canvas = document.getElementById('vulva');
-		paper.setup(canvas);
+var testVulva = function() {
+    var v = new Vulva();
+    v.drawOuterLabia();
+}
 
-        var height = getRandomInt(60, 100)
-        var verticalSpreadTop = getRandomInt(-10, 10)
-        var verticalSpreadBottom = getRandomInt(-10, 10)
-        var spread = 50 - (verticalSpreadTop + verticalSpreadBottom) / 2
-		var upperPoint = new paper.Point(verticalSpreadTop + spread, 50 - (height/2));
-		var lowerPoint = new paper.Point(verticalSpreadBottom + spread, 50 + (height/2));
-		var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(getRandomInt(-40, 0), getRandomInt(50, 20)));
-		var secondSegment = new paper.Segment(lowerPoint, new paper.Point(getRandomInt(-40, 0), getRandomInt(-50, -20)), null);
-
-		var thirdSegment = new paper.Segment(lowerPoint, null, new paper.Point(getRandomInt(0, 40), getRandomInt(-50, -20)));
-		var fourthSegment = new paper.Segment(upperPoint, new paper.Point(getRandomInt(0, 40), getRandomInt(50, 20)), null);
-
-		var path = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
-		path.strokeColor = 'black';
-        //path.fullySelected = true;
-		paper.view.draw();
-	}
-
-	window.onload = drawVulva
+window.onload = testVulva
 </script>
 </head>
 <body>
 	<canvas id="vulva" resize></canvas>
     <input type="text" id="refreshRate"/>
-    <button onclick="setInterval(drawVulva, parseInt(getElementById('refreshRate').value))">refresh</button>
+    <button onclick="setInterval(testVulva, parseInt(getElementById('refreshRate').value))">refresh</button>
 </body>
 </html>
