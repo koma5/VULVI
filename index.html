@@ -18,18 +18,23 @@
             var verticalSpreadTop = this.getRandomInt(-10, 10)
             var verticalSpreadBottom = this.getRandomInt(-10, 10)
             var spread = 50 - (verticalSpreadTop + verticalSpreadBottom) / 2
-            var upperPoint = new paper.Point(verticalSpreadTop + spread, 50 - (height/2));
-            var lowerPoint = new paper.Point(verticalSpreadBottom + spread, 50 + (height/2));
-            var firstSegment = new paper.Segment(upperPoint, null, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(50, 20)));
-            var secondSegment = new paper.Segment(lowerPoint, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(-50, -20)), null);
+            this.upperPoint = new paper.Point(verticalSpreadTop + spread, 50 - (height/2));
+            this.lowerPoint = new paper.Point(verticalSpreadBottom + spread, 50 + (height/2));
+            var firstSegment = new paper.Segment(this.upperPoint, null, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(50, 20)));
+            var secondSegment = new paper.Segment(this.lowerPoint, new paper.Point(this.getRandomInt(-40, 0), this.getRandomInt(-50, -20)), null);
 
-            var thirdSegment = new paper.Segment(lowerPoint, null, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(-50, -20)));
-            var fourthSegment = new paper.Segment(upperPoint, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(50, 20)), null);
+            var thirdSegment = new paper.Segment(this.lowerPoint, null, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(-50, -20)));
+            var fourthSegment = new paper.Segment(this.upperPoint, new paper.Point(this.getRandomInt(0, 40), this.getRandomInt(50, 20)), null);
 
-            var path = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
-            path.strokeColor = 'black';
-            path.fullySelected = this.debug;
-            paper.view.draw();
+            this.outerLabia = new paper.Path(firstSegment, secondSegment, thirdSegment, fourthSegment);
+            this.outerLabia.strokeColor = 'black';
+            this.outerLabia.fullySelected = this.debug;
+        }
+
+        drawClit() {
+            this.clit = new paper.Path.Circle(this.upperPoint, this.getRandomInt(8, 20))
+            this.clit = this.clit.intersect(this.outerLabia, {insert: true})
+            this.clit.strokeColor = 'black';
         }
 
         draw() {
@@ -40,6 +45,8 @@
             paper.setup(this.canvas);
 
             this.drawOuterLabia();
+            this.drawClit();
+            paper.view.draw();
         }
 
         getRandomInt(min, max) {
